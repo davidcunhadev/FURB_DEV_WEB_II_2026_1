@@ -6,8 +6,8 @@ from app.core.database import Base
 comanda_produtos = Table(
     "comanda_produtos",
     Base.metadata,
-    Column("comanda_id", ForeignKey("comandas.id"), primary_key=True),
-    Column("produto_id", ForeignKey("produtos.id"), primary_key=True),
+    Column("comanda_id", Integer, ForeignKey("comandas.id")),
+    Column("produto_id", Integer, ForeignKey("produtos.id")),
 )
 
 
@@ -22,5 +22,5 @@ class Comanda(Base):
     produtos = relationship(
         "Produto",
         secondary=comanda_produtos,
-        lazy="joined",
+        back_populates="comandas",
     )

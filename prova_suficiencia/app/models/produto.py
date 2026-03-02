@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
+from app.models.comanda import comanda_produtos
+
 
 from app.core.database import Base
 
@@ -11,4 +13,8 @@ class Produto(Base):
     nome = Column(String(100), nullable=False)
     preco = Column(Float, nullable=False)
 
-    comanda_id = Column(Integer, ForeignKey("comandas.id"))
+    comandas = relationship(
+        "Comanda",
+        secondary=comanda_produtos,
+        back_populates="produtos",
+    )
